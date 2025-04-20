@@ -1,0 +1,799 @@
+openapi: 3.0.0
+info:
+  title: MockAPI Service
+  version: v1
+  description: API documentation for the MockAPI service.
+
+servers:
+  - url: https://67f9c3e6094de2fe6ea25531.mockapi.io/api/v1
+
+tags:
+  - name: products
+    description: Collection of games
+  - name: genres
+    description: Tags for game category
+  - name: orders
+    description: Access to store orders
+  - name: order-items
+    description: Find out more about orders
+  - name: users
+    description: Operations about user
+
+paths:
+  /products:
+    get:
+      tags:
+        - products
+      summary: Get all products
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+    post:
+      tags:
+        - products
+      summary: Create a new product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+      responses:
+        "201":
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "400":
+          description: Invalid request payload
+  /products/{id}:
+    get:
+      tags:
+        - products
+      summary: Get a product by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the product to retrieve
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "404":
+          description: Product not found
+    put:
+      tags:
+        - products
+      summary: Update a product by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the product to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+      responses:
+        "200":
+          description: Product updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "400":
+          description: Invalid request payload
+        "404":
+          description: Product not found
+    delete:
+      tags:
+        - products
+      summary: Delete a product by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the product to delete
+      responses:
+        "204":
+          description: Product deleted successfully (no content)
+        "404":
+          description: Product not found
+
+  /users:
+    get:
+      tags:
+        - users
+      summary: Get all users
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+    post:
+      tags:
+        - users
+      summary: Create a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "201":
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Invalid request payload
+
+  /users/{id}:
+    get:
+      tags:
+        - users
+      summary: Get a user by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the user to retrieve
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          description: User not found
+    put:
+      tags:
+        - users
+      summary: Update a user by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the user to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "200":
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Invalid request payload
+        "404":
+          description: User not found
+    delete:
+      tags:
+        - users
+      summary: Delete a user by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the user to delete
+      responses:
+        "204":
+          description: User deleted successfully (no content)
+        "404":
+          description: User not found
+
+  /orders:
+    get:
+      tags:
+        - orders
+      summary: Get all orders
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrderDetails"
+    post:
+      tags:
+        - orders
+      summary: Create a new order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderDetails"
+      responses:
+        "201":
+          description: Order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderDetails"
+        "400":
+          description: Invalid request payload
+
+  /orders/{id}:
+    get:
+      tags:
+        - orders
+      summary: Get an order by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the order to retrieve
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderDetails"
+        "404":
+          description: Order not found
+    put:
+      tags:
+        - orders
+      summary: Update an order by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the order to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderDetails"
+      responses:
+        "200":
+          description: Order updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderDetails"
+        "400":
+          description: Invalid request payload
+        "404":
+          description: Order not found
+    delete:
+      tags:
+        - orders
+      summary: Delete an order by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the order to delete
+      responses:
+        "204":
+          description: Order deleted successfully (no content)
+        "404":
+          description: Order not found
+
+  /genres:
+    get:
+      tags:
+        - genres
+      summary: Get all genres
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Genre"
+    post:
+      tags:
+        - genres
+      summary: Create a new genre
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Genre"
+      responses:
+        "201":
+          description: Genre created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Genre"
+        "400":
+          description: Invalid request payload
+
+  /genres/{id}:
+    get:
+      tags:
+        - genres
+      summary: Get a genre by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the genre to retrieve
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Genre"
+        "404":
+          description: Genre not found
+    put:
+      tags:
+        - genres
+      summary: Update a genre by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the genre to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Genre"
+      responses:
+        "200":
+          description: Genre updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Genre"
+        "400":
+          description: Invalid request payload
+        "404":
+          description: Genre not found
+    delete:
+      tags:
+        - genres
+      summary: Delete a genre by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the genre to delete
+      responses:
+        "204":
+          description: Genre deleted successfully (no content)
+        "404":
+          description: Genre not found
+
+  /reviews:
+    get:
+      tags:
+        - reviews
+      summary: Get all reviews
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Review"
+    post:
+      tags:
+        - reviews
+      summary: Create a new review
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Review"
+      responses:
+        "201":
+          description: Review created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Review"
+        "400":
+          description: Invalid request payload
+
+  /reviews/{id}:
+    get:
+      tags:
+        - reviews
+      summary: Get a review by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the review to retrieve
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Review"
+        "404":
+          description: Review not found
+    put:
+      tags:
+        - reviews
+      summary: Update a review by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the review to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Review"
+      responses:
+        "200":
+          description: Review updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Review"
+        "400":
+          description: Invalid request payload
+        "404":
+          description: Review not found
+    delete:
+      tags:
+        - reviews
+      summary: Delete a review by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the review to delete
+      responses:
+        "204":
+          description: Review deleted successfully (no content)
+        "404":
+          description: Review not found
+
+  /order-items:
+    get:
+      tags:
+        - order-items
+      summary: Get all order items
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrderItem"
+    post:
+      tags:
+        - order-items
+      summary: Create a new order item
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderItem"
+      responses:
+        "201":
+          description: Order item created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderItem"
+        "400":
+          description: Invalid request payload
+
+  /order-items/{id}:
+    get:
+      tags:
+        - order-items
+      summary: Get an order item by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the order item to retrieve
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderItem"
+        "404":
+          description: Order item not found
+    put:
+      tags:
+        - order-items
+      summary: Update an order item by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the order item to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderItem"
+      responses:
+        "200":
+          description: Order item updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderItem"
+        "400":
+          description: Invalid request payload
+        "404":
+          description: Order item not found
+    delete:
+      tags:
+        - order-items
+      summary: Delete an order item by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID of the order item to delete
+      responses:
+        "204":
+          description: Order item deleted successfully (no content)
+        "404":
+          description: Order item not found
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        product_id:
+          type: string
+          format: uuid
+          example: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+        title:
+          type: string
+          maxLength: 255
+          example: "Abyssal Blood"
+        description:
+          type: string
+          maxLength: 255
+        genre_id:
+          $ref: "#/components/schemas/Genre"
+        release_date:
+          type: string
+          format: date
+        developer:
+          type: string
+          maxLength: 255
+        developer_avatar:
+          type: string
+          maxLength: 255
+        publisher:
+          type: string
+          maxLength: 255
+        rating:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 5
+        price:
+          type: number
+          format: float
+        discount_percentage:
+          type: integer
+          minimum: 0
+          maximum: 100
+    Genre:
+      type: object
+      properties:
+        genre_id:
+          type: string
+          format: uuid
+        genre_name:
+          type: string
+          maxLength: 100
+        description:
+          type: string
+    User:
+      type: object
+      properties:
+        user_id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          maxLength: 255
+        hash_password:
+          type: string
+          maxLength: 255
+        birthday:
+          type: string
+          format: date
+        created_at:
+          type: string
+          format: date-time
+        role:
+          type: string
+          enum:
+            - user
+            - dev
+            - admin
+        status:
+          type: boolean
+        first_name:
+          type: string
+        last_name:
+          type: string
+        address:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          maxItems: 2
+        city:
+          type: string
+        state:
+          type: string
+        zip_code:
+          type: string
+        country:
+          type: string
+    OrderDetails:
+      type: object
+      properties:
+        order_id:
+          type: string
+          format: uuid
+        user_id:
+          $ref: "#/components/schemas/User" # อ้างอิงไปยัง User schema
+        quantity:
+          type: integer
+        total_price:
+          type: number
+          format: float
+        status:
+          type: string
+          enum:
+            - pending
+            - paid
+            - cancelled
+        payment_method:
+          type: string
+          enum:
+            - credit_card
+            - qrcode
+        transaction_date:
+          type: string
+          format: date-time
+        create_at:
+          type: string
+          format: date-time
+    OrderItem:
+      type: object
+      properties:
+        order_line_id:
+          type: string
+          format: uuid
+        order_id:
+          $ref: "#/components/schemas/OrderDetails"
+        product_id:
+          $ref: "#/components/schemas/Product"
+        sell_price:
+          type: number
+          format: float
+    Review:
+      type: object
+      properties:
+        review_id:
+          type: string
+          format: uuid
+        user_id:
+          $ref: "#/components/schemas/User"
+        product_id:
+          $ref: "#/components/schemas/Product"
+        rating:
+          type: integer
+          minimum: 0
+          maximum: 5
+        comment:
+          type: string
+          maxLength: 255
+        review_date:
+          type: string
+          format: date-time

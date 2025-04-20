@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Box, Typography, Paper } from "@mui/material";
 import Heading from "../components/common/Heading";
 import ProductCard from "../components/products/ProductCard";
@@ -12,36 +12,9 @@ import products from "../data/products.json";
 
 const Home = () => {
   const recommendedGames = products.slice(0, 5);
-  // const [products, setProducts] = useState([]);
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(null);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const data = await getProducts();
-  //       setProducts(data);
-  //       setLoading(false);
-  //     } catch (err) {
-  //       setError(err);
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // if (error) {
-  //   return <div>Error: {error.message}</div>;
-  // }
-
-  return (
+   return (
     <>
-      {/* <Box
+      <Box
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -59,7 +32,7 @@ const Home = () => {
             </li>
           ))}
         </ul>
-      </Box> */}
+      </Box>
       <SwiperPerViewAuto products={recommendedGames} />
       <Box
         sx={{
